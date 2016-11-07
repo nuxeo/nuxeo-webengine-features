@@ -3,9 +3,8 @@
 
   <parent>
     <groupId>org.nuxeo.ecm.platform</groupId>
-    <artifactId>nuxeo-features-parent</artifactId>
+    <artifactId>nuxeo-webengine-features</artifactId>
     <version>8.10-SNAPSHOT</version>
-    <relativePath>../../pom.xml</relativePath>
   </parent>
 
   <groupId>org.nuxeo.ecm.webengine</groupId>
