@@ -38,6 +38,13 @@
       <artifactId>commons-codec</artifactId>
       <optional>false</optional>
     </dependency>
+
+    <!-- Test dependencies -->
+    <dependency>
+      <groupId>org.nuxeo.ecm.platform</groupId>
+      <artifactId>nuxeo-features-test</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
 </project>
