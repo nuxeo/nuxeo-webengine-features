@@ -22,4 +22,14 @@
     <module>nuxeo-webengine-samples-extended</module>
   </modules>
 
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.nuxeo.ecm.webengine</groupId>
+        <artifactId>nuxeo-webengine-samples-base</artifactId>
+        <version>8.10-SNAPSHOT</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
 </project>
