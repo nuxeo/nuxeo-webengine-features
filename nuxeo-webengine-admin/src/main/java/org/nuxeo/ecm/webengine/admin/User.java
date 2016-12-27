@@ -75,14 +75,14 @@ public class User extends DefaultObject {
         List<String> listGroups = Arrays.asList(selectedGroups);
         principal.setGroups(listGroups);
 
-        userManager.updatePrincipal(principal);
+        userManager.updateUser(principal.getModel());
         return redirect(getPath());
     }
 
     @DELETE
     public Response doDelete() {
         UserManager userManager = Framework.getService(UserManager.class);
-        userManager.deletePrincipal(principal);
+        userManager.deleteUser(principal.getName());
         return redirect(getPrevious().getPath());
     }
 

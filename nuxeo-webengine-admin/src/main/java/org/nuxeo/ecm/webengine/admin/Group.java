@@ -65,7 +65,7 @@ public class Group extends DefaultObject {
     @DELETE
     public Response doDelete() {
         UserManager userManager = Framework.getService(UserManager.class);
-        userManager.deleteGroup(group);
+        userManager.deleteGroup(group.getName());
         return redirect(getPrevious().getPath());
     }
 

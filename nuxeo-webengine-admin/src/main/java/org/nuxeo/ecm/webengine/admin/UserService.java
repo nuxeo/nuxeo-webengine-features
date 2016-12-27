@@ -33,6 +33,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
+import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
 import org.nuxeo.ecm.core.api.NuxeoGroup;
 import org.nuxeo.ecm.core.api.NuxeoPrincipal;
@@ -104,7 +105,7 @@ public class UserService extends DefaultObject {
                 List<String> listGroups = Arrays.asList(selectedGroups);
                 user.setGroups(listGroups);
 
-                userManager.updatePrincipal(user);
+                userManager.updateUser(user.getModel());
             } else {
                 // create
                 user = new NuxeoPrincipalImpl(req.getParameter("username"));
@@ -117,7 +118,7 @@ public class UserService extends DefaultObject {
                 List<String> listGroups = Arrays.asList(selectedGroups);
                 user.setGroups(listGroups);
 
-                userManager.createPrincipal(user);
+                userManager.createUser(user.getModel());
             }
             return redirect(getPath() + "/user/" + user.getName());
         }
@@ -131,20 +132,15 @@ public class UserService extends DefaultObject {
         String groupName = ctx.getRequest().getParameter("groupName");
         UserManager userManager = Framework.getService(UserManager.class);
         if (groupName != null && !groupName.equals("")) {
-            NuxeoGroup group = new NuxeoGroupImpl(groupName);
-            userManager.createGroup(group);
-            return redirect(getPath() + "/group/" + group.getName());
+            DocumentModel groupModel = userManager.getBareGroupModel();
+            String schemaName = userManager.getGroupSchemaName();
+            String idField = userManager.getGroupIdField();
+            groupModel.setProperty(schemaName, idField, groupName);
+            userManager.createGroup(groupModel);
+            return redirect(getPath() + "/group/" + groupName);
         }
         // FIXME
         return null;
-    }
-
-    public List<NuxeoGroup> getGroups() {
-        return Framework.getService(UserManager.class).getAvailableGroups();
-    }
-
-    public List<NuxeoPrincipal> getUsers() {
-        return Framework.getService(UserManager.class).getAvailablePrincipals();
     }
 
 }
