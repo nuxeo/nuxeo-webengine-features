@@ -21,7 +21,6 @@ package org.nuxeo.ecm.webengine.samples;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
 import org.nuxeo.ecm.webengine.model.Access;
@@ -40,7 +39,7 @@ import org.nuxeo.ecm.webengine.model.impl.ModuleRoot;
  * {code}NuxeoWebModule{/code}. You can also configure a Web Module using a module.xml file located in the module root
  * directory. This file can be used to define: root resources (as we've seen in the previous example), links, media type
  * IDs random extensions to other extension points;
- * 
+ *
  * @author <a href="mailto:bs@nuxeo.com">Bogdan Stefanescu</a>
  * @author Stephane Lacoin (aka matic)
  */
@@ -75,15 +74,15 @@ public class SamplesRoot extends ModuleRoot {
     }
 
     @Override
-    public Object handleError(WebApplicationException e) {
-        if (e instanceof WebSecurityException) {
+    public Object handleError(Throwable t) {
+        if (t instanceof WebSecurityException) {
             // display a login page
-            return Response.status(401).entity(getTemplate("error/error_401.ftl")).build();
-        } else if (e instanceof WebResourceNotFoundException) {
-            return Response.status(404).entity(getTemplate("error/error_404.ftl")).build();
+            return Response.status(401).entity(getTemplate("error/error_401.ftl")).type("text/html").build();
+        } else if (t instanceof WebResourceNotFoundException) {
+            return Response.status(404).entity(getTemplate("error/error_404.ftl")).type("text/html").build();
         } else {
             // not interested in that exception - use default handling
-            return super.handleError(e);
+            return super.handleError(t);
         }
     }
 }

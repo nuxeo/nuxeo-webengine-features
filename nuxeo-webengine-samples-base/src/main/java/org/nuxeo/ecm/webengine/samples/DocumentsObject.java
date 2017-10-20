@@ -59,10 +59,10 @@ import org.nuxeo.ecm.webengine.model.impl.DefaultObject;
  * depends on whether or not the repository root is accessible to Anonymous user) For this reason we provide in this
  * example a way to login into the repository. This also demonstrates <b>how to handle errors</b> in WebEngine. The
  * mechanism is simple: At your module root resource level you redefine a method {@link SamplesRoot}
- * {@code public Object handleError(WebApplicationException e)} that will be invoked each time an uncatched exception is
+ * {@code public Object handleError(Throwable t)} that will be invoked each time an uncatched exception is
  * thrown during the request. From that method you should return a suitable response to render the error. To ensure
  * exceptions are correctly redirected to your error handler you must catch all exceptions thrown in your resource
- * methods and rethrowing them as following: {@code ... } catch (Exception e) { throw WebException.wrap(e); } </code>.
+ * methods and rethrowing them as following: {@code ... } catch (Exception e) { throw new NuxeoException(e); } </code>.
  * The exception wrapping is automatically converting exceptions to the ones defined by WebEngine model.
  *
  * @author <a href="mailto:bs@nuxeo.com">Bogdan Stefanescu</a>

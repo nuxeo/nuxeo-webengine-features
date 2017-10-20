@@ -21,7 +21,6 @@ package org.nuxeo.ecm.webengine.management;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
 import org.apache.commons.logging.Log;
@@ -55,11 +54,11 @@ public class ManagementModule extends ModuleRoot {
     }
 
     @Override
-    public Object handleError(WebApplicationException e) {
-        if (e instanceof WebSecurityException) {
+    public Object handleError(Throwable t) {
+        if (t instanceof WebSecurityException) {
             return Response.status(401).entity(getTemplate("error_401.ftl")).type("text/html").build();
         }
-        return super.handleError(e);
+        return super.handleError(t);
     }
 
 }
