@@ -1,0 +1,2 @@
+The nuxeo-webengine-features module is deprecated since 8.10.
+
